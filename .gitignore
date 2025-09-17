@@ -9,3 +9,5 @@ user_config.json
 src/test/test-workspace/AGENDA.md
 webview/initialNodes.ts
 src/assets/nodeMetadata.ts
+*storybook.log
+storybook-static

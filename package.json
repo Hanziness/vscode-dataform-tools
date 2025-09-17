@@ -1,366 +1,381 @@
 {
-    "name": "dataform-lsp-vscode",
-    "displayName": "Dataform tools",
-    "publisher": "ashishalex",
-    "icon": "media/images/dtools.png",
-    "description": "Compiled query, dry run stats, dependency graphs, inline diagnostics, run and preview models, cost estimation, go-to-definition, auto-completion, formatting using sqlfluff and more.",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ashish10alex/vscode-dataform-tools.git"
-    },
-    "version": "0.16.3",
-    "sponsor": {
-        "url": "https://buymeacoffee.com/ashishalexj"
-    },
-    "engines": {
-        "vscode": "^1.89.0"
-    },
-    "categories": [
-        "Other",
-        "Programming Languages",
-        "Snippets",
-        "Data Science",
-        "Testing"
-    ],
-    "activationEvents": [
-        "workspaceContains:**/*.sqlx",
-        "onCommand:extension.runCurrentFile",
-        "onCommand:extension.showDependentsInGraph",
-        "onCommand:extension.runCurrentFileWtDeps",
-        "onCommand:extension.runCurrentFileWtDownstreamDeps",
-        "onCommand:extension.showCompiledQueryWtDryRun",
-        "onCommand:extension.runTag",
-        "onCommand:extension.runTagWtDeps",
-        "onCommand:extension.runTagWtDownstreamDeps",
-        "onCommand:extension.runFilesTagsWtOptions",
-        "onCommand:extension.createNewDataformProject",
-        "onCommand:extension.showCompiledQueryInWebView",
-        "onCommand:extension.dependencyGraphPanel",
-        "onCommand:extension.selectWorkspaceFolder"
-    ],
-    "main": "./out/src/extension.js",
-    "contributes": {
-        "viewsContainers": {
-            "panel": [
-                {
-                    "id": "queryResultsContainer",
-                    "title": "Dataform tools",
-                    "icon": ""
-                }
-            ]
-        },
-        "views": {
-            "queryResultsContainer": [
-                {
-                    "icon": "",
-                    "type": "webview",
-                    "id": "queryResultsView",
-                    "name": "Dataform tools"
-                }
-            ]
-        },
-        "snippets": [
-            {
-                "language": "sqlx",
-                "path": "./snippets/dataform.code-snippets.json"
-            },
-            {
-                "language": "sqlx",
-                "path": "./snippets/bigquery.code-snippets.json"
-            },
-            {
-                "language": "javascript",
-                "path": "./snippets/dataform.code-snippets.json"
-            }
-        ],
-        "commands": [
-            {
-                "command": "vscode-dataform-tools.runQuery",
-                "category": "Dataform",
-                "title": "Preview query results"
-            },
-            {
-                "command": "vscode-dataform-tools.cancelQuery",
-                "category": "Dataform",
-                "title": "Cancel query"
-            },
-            {
-                "command": "vscode-dataform-tools.runFilesTagsWtOptions",
-                "category": "Dataform",
-                "title": "Run file(s) / tag(s) with options"
-            },
-            {
-                "command": "vscode-dataform-tools.createNewDataformProject",
-                "category": "Dataform",
-                "title": "create new Dataform project"
-            },
-            {
-                "command": "vscode-dataform-tools.runTag",
-                "category": "Dataform",
-                "title": "Run a tag"
-            },
-            {
-                "command": "vscode-dataform-tools.runTagWtDeps",
-                "category": "Dataform",
-                "title": "Run a tag with dependencies"
-            },
-            {
-                "command": "vscode-dataform-tools.runTagWtDownstreamDeps",
-                "category": "Dataform",
-                "title": "Run a tag with dependents"
-            },
-            {
-                "command": "vscode-dataform-tools.runCurrentFileWtDownstreamDeps",
-                "category": "Dataform",
-                "title": "Run current file with dependents"
-            },
-            {
-                "command": "vscode-dataform-tools.runCurrentFile",
-                "category": "Dataform",
-                "title": "Run current file",
-                "icon": "$(play)",
-                "group": "navigation"
-            },
-            {
-                "command": "vscode-dataform-tools.runCurrentFileWtDeps",
-                "category": "Dataform",
-                "title": "Run current file with dependencies"
-            },
-            {
-                "command": "vscode-dataform-tools.showCompiledQueryWtDryRun",
-                "category": "Dataform",
-                "title": "Show compiled query in vertical split",
-                "icon": "$(layout-centered)",
-                "group": "navigation@3"
-            },
-            {
-                "command": "vscode-dataform-tools.showCompiledQueryInWebView",
-                "category": "Dataform",
-                "title": "Show compiled Query in web view"
-            },
-            {
-                "command": "vscode-dataform-tools.dependencyGraphPanel",
-                "category": "Dataform",
-                "title": "Show dependency graph"
-            },
-            {
-                "command": "vscode-dataform-tools.formatDocument",
-                "category": "Dataform",
-                "title": "Format Document",
-                "icon": "$(sparkle)",
-                "group": "navigation@0"
-            },
-            {
-                "command": "vscode-dataform-tools.selectWorkspaceFolder",
-                "category": "Dataform",
-                "title": "Select workspace folder"
-            }
-        ],
-        "languages": [
-            {
-                "id": "sqlx",
-                "extensions": [
-                    ".sqlx"
-                ],
-                "configuration": "language-configuration.json"
-            }
-        ],
-        "grammars": [
-            {
-                "language": "sqlx",
-                "scopeName": "source.sqlx",
-                "path": "sqlx.grammar.json"
-            }
-        ],
-        "codeActions": [
-            {
-                "kind": "quickfix",
-                "languages": [
-                    "sqlx"
-                ]
-            }
-        ],
-        "menus": {
-            "editor/title": [
-                {
-                    "command": "vscode-dataform-tools.runCurrentFile",
-                    "when": "resourceExtname == .sqlx || resourceExtname == .js",
-                    "group": "navigation"
-                },
-                {
-                    "command": "vscode-dataform-tools.showCompiledQueryWtDryRun",
-                    "when": "resourceExtname == .sqlx || resourceExtname == .js",
-                    "group": "navigation@3"
-                },
-                {
-                    "command": "vscode-dataform-tools.formatDocument",
-                    "when": "resourceExtname == .sqlx || resourceExtname == .js",
-                    "group": "navigation@0"
-                }
-            ]
-        },
-        "configuration": {
-            "title": "Dataform",
-            "properties": {
-                "vscode-dataform-tools.compilerOptions": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "Addition compiler options to pass to dataform cli commands e.g. --vars=someKey=someValue,a=b"
-                },
-                "vscode-dataform-tools.currencyFoDryRunCost": {
-                    "type": "string",
-                    "enum": [
-                        "USD",
-                        "EUR",
-                        "GBP",
-                        "JPY",
-                        "CAD",
-                        "AUD",
-                        "INR"
-                    ],
-                    "default": "USD",
-                    "markdownDescription": "Supported currencies for Dry Run cost estimation. Choose from USD (US Dollar), EUR (Euro), GBP (British Pound), JPY (Japanese Yen), CAD (Canadian Dollar), AUD (Australian Dollar), or INR (Indian Rupee)."
-                },
-                "vscode-dataform-tools.showCompiledQueryInVerticalSplitOnSave": {
-                    "type": "boolean",
-                    "default": true,
-                    "markdownDescription": "Shows compiled sql query on veritcal split when `.sqlx` file is saved"
-                },
-                "vscode-dataform-tools.defaultDataformCompileTime": {
-                    "type": "string",
-                    "default": "5m",
-                    "pattern": "^(\\d+[sm])+$",
-                    "markdownDescription": "Duration to allow project compilation to complete. Use format like '5m', '60s' etc. Passed to `dataform compile --json --timeout=<value>`"
-                },
-                "vscode-dataform-tools.formattingCli": {
-                    "type": "string",
-                    "default": "sqlfluff",
-                    "markdownDescription": "CLI to use for formatting. Choose between `sqlfluff` or `dataform`. NOTE:`dataform` cli does not support formatting individual files. It formats the entire project",
-                    "enum": [
-                        "sqlfluff",
-                        "dataform"
-                    ]
-                },
-                "vscode-dataform-tools.sqlfluffConfigPath": {
-                    "type": "string",
-                    "default": ".vscode-dataform-tools/.sqlfluff",
-                    "description": "Path to sqlfluff config file. Please make sure your .sqlfluff is compatible with .sqlx files",
-                    "pattern": ".*\\/\\.sqlfluff$"
-                },
-                "vscode-dataform-tools.sqlfluffExecutablePath": {
-                    "type": "string",
-                    "default": "sqlfluff",
-                    "description": "Path to sqlfluff executable",
-                    "pattern": "^.*sqlfluff(?:\\.exe)?$"
-                },
-                "vscode-dataform-tools.sourceAutoCompletionPreference": {
-                    "type": "string",
-                    "enum": [
-                        "${ref('table_name')}",
-                        "${ref('dataset_name', 'table_name')}",
-                        "${ref({schema:'dataset_name', name:'table_name'})}"
-                    ],
-                    "default": "${ref('table_name')}",
-                    "markdownDescription": "Preferred source autocompletion can be one of `${ref('table_name')}` or `${ref('dataset_name', 'table_name')}` or ${ref({schema:'dataset_name', name:'table_name'})}"
-                },
-                "vscode-dataform-tools.dataformCliScope": {
-                    "type": "string",
-                    "enum": [
-                        "global",
-                        "local"
-                    ],
-                    "default": "global",
-                    "markdownDescription": "Dataform installation scope to use. Default to `global` which uses the dataform cli installed in global scope when running `dataform install -g @dataform/cli`. Selecting `local` scope would mean dataform cli installation in your workspace folder in `./node_modules/.bin/dataform` will be used. This is created when `npm install @dataform/cli` is ran from the root of the workspace folder."
-                },
-                "vscode-dataform-tools.dataformExecutablePath": {
-                    "type": "string",
-                    "default": null,
-                    "markdownDescription": "**Override path to dataform executable**\n\n⚠️ **Only use this if the extension cannot find dataform automatically**\n\nThe extension automatically searches:\n- System PATH\n- Common tool managers (mise, asdf, nvm, etc.)\n- Standard installation locations\n\nUse this setting for:\n- **Specific versions** for testing: `/path/to/dataform-v3.0.25`\n- **Company-approved versions**: `/opt/company-tools/dataform`\n- **Non-standard locations**: Custom installation paths\n\n**Example**: `/usr/local/bin/dataform` or `${HOME}/.local/share/mise/installs/npm-dataform-cli/3.0.26/bin/dataform`",
-                    "pattern": "^.*dataform(?:\\.cmd|\\.exe)?$"
-                },
-                "vscode-dataform-tools.gcloudExecutablePath": {
-                    "type": "string",
-                    "default": null,
-                    "markdownDescription": "**Override path to gcloud executable**\n\n⚠️ **Only use this if the extension cannot find gcloud automatically**\n\nThe extension automatically searches:\n- System PATH\n- Common tool managers (mise, asdf, etc.)\n- Standard gcloud installation locations\n\nUse this setting for:\n- **Specific versions** for testing: `/path/to/gcloud-v530.0.0`\n- **Company-approved versions**: `/opt/company-tools/gcloud`\n- **Non-standard locations**: Custom installation paths\n\n**Example**: `/usr/local/bin/gcloud` or `${HOME}/google-cloud-sdk/bin/gcloud`",
-                    "pattern": "^.*gcloud(?:\\.cmd|\\.exe)?$"
-                },
-                "vscode-dataform-tools.compileAndDryRunBeforeFormatting": {
-                    "type": "boolean",
-                    "default": true,
-                    "markdownDescription": "Disable this to experience faster formatting, especially if you have enabled format on save. `::WARNING::` only turn this on if you are confident that your query compiles without errors. Syntax error in config/pre/post operation blocks termination can result in unexpeted results while formatting"
-                },
-                "vscode-dataform-tools.bigqueryAuthenticationCheck": {
-                    "type": "boolean",
-                    "default": true,
-                    "markdownDescription": "Uses an interval of 55 minutes to validate the user's BigQuery Credentials. Set this to `false` to only validate the user's credentials when a query or dry run fails"
-                },
-                "vscode-dataform-tools.recommendErrorLensExtension": {
-                    "type": "boolean",
-                    "default": true,
-                    "markdownDescription": "Whether to recommend Error Lens extension to show erorrs inline rather than showing them as swigly lines"
-                },
-                "vscode-dataform-tools.enableLogging": {
-                    "type": "boolean",
-                    "default": false,
-                    "markdownDescription": "Enable debug logging to help troubleshoot issues. Logs will appear in the 'Dataform Tools' output channel."
-                },
-                "vscode-dataform-tools.gcpProjectId": {
-                    "type": "string",
-                    "default": null,
-                    "markdownDescription": "GCP project ID to use for BigQuery queries. When not provided, the project ID will be inferred from your enviroment typically same as `gcloud config list project`",
-                    "pattern": "^[a-z0-9-]+$"
-                }
-            }
-        },
-        "configurationDefaults": {
-            "[sqlx]": {
-                "editor.formatOnSave": false
-            }
+  "name": "dataform-lsp-vscode",
+  "displayName": "Dataform tools",
+  "publisher": "ashishalex",
+  "icon": "media/images/dtools.png",
+  "description": "Compiled query, dry run stats, dependency graphs, inline diagnostics, run and preview models, cost estimation, go-to-definition, auto-completion, formatting using sqlfluff and more.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashish10alex/vscode-dataform-tools.git"
+  },
+  "version": "0.16.3",
+  "sponsor": {
+    "url": "https://buymeacoffee.com/ashishalexj"
+  },
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages",
+    "Snippets",
+    "Data Science",
+    "Testing"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/*.sqlx",
+    "onCommand:extension.runCurrentFile",
+    "onCommand:extension.showDependentsInGraph",
+    "onCommand:extension.runCurrentFileWtDeps",
+    "onCommand:extension.runCurrentFileWtDownstreamDeps",
+    "onCommand:extension.showCompiledQueryWtDryRun",
+    "onCommand:extension.runTag",
+    "onCommand:extension.runTagWtDeps",
+    "onCommand:extension.runTagWtDownstreamDeps",
+    "onCommand:extension.runFilesTagsWtOptions",
+    "onCommand:extension.createNewDataformProject",
+    "onCommand:extension.showCompiledQueryInWebView",
+    "onCommand:extension.dependencyGraphPanel",
+    "onCommand:extension.selectWorkspaceFolder"
+  ],
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "queryResultsContainer",
+          "title": "Dataform tools",
+          "icon": ""
         }
+      ]
     },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "pretest": "npm run compile && npm run lint",
-        "lint": "eslint src --ext ts",
-        "test": "rm -rf .vscode-test/user-data; vscode-test",
-        "prerelease": "npm run test && markdownlint-cli2 README.md && standard-version --dry-run"
+    "views": {
+      "queryResultsContainer": [
+        {
+          "icon": "",
+          "type": "webview",
+          "id": "queryResultsView",
+          "name": "Dataform tools"
+        }
+      ]
     },
-    "devDependencies": {
-        "@types/dagre": "^0.7.52",
-        "@types/jest": "^29.5.14",
-        "@types/js-beautify": "^1.14.3",
-        "@types/mocha": "^10.0.10",
-        "@types/node": "20.x",
-        "@types/react": "^19.0.10",
-        "@types/react-dom": "^19.0.4",
-        "@types/vscode": "^1.89.0",
-        "@typescript-eslint/eslint-plugin": "^7.7.1",
-        "@typescript-eslint/parser": "^7.7.1",
-        "@vitejs/plugin-react": "^4.2.0",
-        "@vscode/test-cli": "^0.0.8",
-        "@vscode/test-electron": "^2.5.2",
-        "autoprefixer": "^10.4.16",
-        "concurrently": "^9.1.2",
-        "dagre": "^0.8.5",
-        "eslint": "^8.57.0",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
-        "tailwindcss": "^3.3.0",
-        "vite": "^5.0.0"
+    "snippets": [
+      {
+        "language": "sqlx",
+        "path": "./snippets/dataform.code-snippets.json"
+      },
+      {
+        "language": "sqlx",
+        "path": "./snippets/bigquery.code-snippets.json"
+      },
+      {
+        "language": "javascript",
+        "path": "./snippets/dataform.code-snippets.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "vscode-dataform-tools.runQuery",
+        "category": "Dataform",
+        "title": "Preview query results"
+      },
+      {
+        "command": "vscode-dataform-tools.cancelQuery",
+        "category": "Dataform",
+        "title": "Cancel query"
+      },
+      {
+        "command": "vscode-dataform-tools.runFilesTagsWtOptions",
+        "category": "Dataform",
+        "title": "Run file(s) / tag(s) with options"
+      },
+      {
+        "command": "vscode-dataform-tools.createNewDataformProject",
+        "category": "Dataform",
+        "title": "create new Dataform project"
+      },
+      {
+        "command": "vscode-dataform-tools.runTag",
+        "category": "Dataform",
+        "title": "Run a tag"
+      },
+      {
+        "command": "vscode-dataform-tools.runTagWtDeps",
+        "category": "Dataform",
+        "title": "Run a tag with dependencies"
+      },
+      {
+        "command": "vscode-dataform-tools.runTagWtDownstreamDeps",
+        "category": "Dataform",
+        "title": "Run a tag with dependents"
+      },
+      {
+        "command": "vscode-dataform-tools.runCurrentFileWtDownstreamDeps",
+        "category": "Dataform",
+        "title": "Run current file with dependents"
+      },
+      {
+        "command": "vscode-dataform-tools.runCurrentFile",
+        "category": "Dataform",
+        "title": "Run current file",
+        "icon": "$(play)",
+        "group": "navigation"
+      },
+      {
+        "command": "vscode-dataform-tools.runCurrentFileWtDeps",
+        "category": "Dataform",
+        "title": "Run current file with dependencies"
+      },
+      {
+        "command": "vscode-dataform-tools.showCompiledQueryWtDryRun",
+        "category": "Dataform",
+        "title": "Show compiled query in vertical split",
+        "icon": "$(layout-centered)",
+        "group": "navigation@3"
+      },
+      {
+        "command": "vscode-dataform-tools.showCompiledQueryInWebView",
+        "category": "Dataform",
+        "title": "Show compiled Query in web view"
+      },
+      {
+        "command": "vscode-dataform-tools.dependencyGraphPanel",
+        "category": "Dataform",
+        "title": "Show dependency graph"
+      },
+      {
+        "command": "vscode-dataform-tools.formatDocument",
+        "category": "Dataform",
+        "title": "Format Document",
+        "icon": "$(sparkle)",
+        "group": "navigation@0"
+      },
+      {
+        "command": "vscode-dataform-tools.selectWorkspaceFolder",
+        "category": "Dataform",
+        "title": "Select workspace folder"
+      }
+    ],
+    "languages": [
+      {
+        "id": "sqlx",
+        "extensions": [
+          ".sqlx"
+        ],
+        "configuration": "language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "sqlx",
+        "scopeName": "source.sqlx",
+        "path": "sqlx.grammar.json"
+      }
+    ],
+    "codeActions": [
+      {
+        "kind": "quickfix",
+        "languages": [
+          "sqlx"
+        ]
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "vscode-dataform-tools.runCurrentFile",
+          "when": "resourceExtname == .sqlx || resourceExtname == .js",
+          "group": "navigation"
+        },
+        {
+          "command": "vscode-dataform-tools.showCompiledQueryWtDryRun",
+          "when": "resourceExtname == .sqlx || resourceExtname == .js",
+          "group": "navigation@3"
+        },
+        {
+          "command": "vscode-dataform-tools.formatDocument",
+          "when": "resourceExtname == .sqlx || resourceExtname == .js",
+          "group": "navigation@0"
+        }
+      ]
     },
-    "dependencies": {
-        "@google-cloud/bigquery": "^7.8.0",
-        "@google-cloud/lineage": "^1.3.0",
-        "@google-cloud/resource-manager": "^6.2.0",
-        "@xyflow/react": "^12.4.3",
-        "clean": "^4.0.2",
-        "comment-parser": "^1.4.1",
-        "js-beautify": "^1.15.1",
-        "postcss": "^8.5.2",
-        "pretest": "^1.1.0",
-        "react-select": "^5.10.0",
-        "typescript": "^5.7.3"
+    "configuration": {
+      "title": "Dataform",
+      "properties": {
+        "vscode-dataform-tools.compilerOptions": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Addition compiler options to pass to dataform cli commands e.g. --vars=someKey=someValue,a=b"
+        },
+        "vscode-dataform-tools.currencyFoDryRunCost": {
+          "type": "string",
+          "enum": [
+            "USD",
+            "EUR",
+            "GBP",
+            "JPY",
+            "CAD",
+            "AUD",
+            "INR"
+          ],
+          "default": "USD",
+          "markdownDescription": "Supported currencies for Dry Run cost estimation. Choose from USD (US Dollar), EUR (Euro), GBP (British Pound), JPY (Japanese Yen), CAD (Canadian Dollar), AUD (Australian Dollar), or INR (Indian Rupee)."
+        },
+        "vscode-dataform-tools.showCompiledQueryInVerticalSplitOnSave": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Shows compiled sql query on veritcal split when `.sqlx` file is saved"
+        },
+        "vscode-dataform-tools.defaultDataformCompileTime": {
+          "type": "string",
+          "default": "5m",
+          "pattern": "^(\\d+[sm])+$",
+          "markdownDescription": "Duration to allow project compilation to complete. Use format like '5m', '60s' etc. Passed to `dataform compile --json --timeout=<value>`"
+        },
+        "vscode-dataform-tools.formattingCli": {
+          "type": "string",
+          "default": "sqlfluff",
+          "markdownDescription": "CLI to use for formatting. Choose between `sqlfluff` or `dataform`. NOTE:`dataform` cli does not support formatting individual files. It formats the entire project",
+          "enum": [
+            "sqlfluff",
+            "dataform"
+          ]
+        },
+        "vscode-dataform-tools.sqlfluffConfigPath": {
+          "type": "string",
+          "default": ".vscode-dataform-tools/.sqlfluff",
+          "description": "Path to sqlfluff config file. Please make sure your .sqlfluff is compatible with .sqlx files",
+          "pattern": ".*\\/\\.sqlfluff$"
+        },
+        "vscode-dataform-tools.sqlfluffExecutablePath": {
+          "type": "string",
+          "default": "sqlfluff",
+          "description": "Path to sqlfluff executable",
+          "pattern": "^.*sqlfluff(?:\\.exe)?$"
+        },
+        "vscode-dataform-tools.sourceAutoCompletionPreference": {
+          "type": "string",
+          "enum": [
+            "${ref('table_name')}",
+            "${ref('dataset_name', 'table_name')}",
+            "${ref({schema:'dataset_name', name:'table_name'})}"
+          ],
+          "default": "${ref('table_name')}",
+          "markdownDescription": "Preferred source autocompletion can be one of `${ref('table_name')}` or `${ref('dataset_name', 'table_name')}` or ${ref({schema:'dataset_name', name:'table_name'})}"
+        },
+        "vscode-dataform-tools.dataformCliScope": {
+          "type": "string",
+          "enum": [
+            "global",
+            "local"
+          ],
+          "default": "global",
+          "markdownDescription": "Dataform installation scope to use. Default to `global` which uses the dataform cli installed in global scope when running `dataform install -g @dataform/cli`. Selecting `local` scope would mean dataform cli installation in your workspace folder in `./node_modules/.bin/dataform` will be used. This is created when `npm install @dataform/cli` is ran from the root of the workspace folder."
+        },
+        "vscode-dataform-tools.dataformExecutablePath": {
+          "type": "string",
+          "default": null,
+          "markdownDescription": "**Override path to dataform executable**\n\n⚠️ **Only use this if the extension cannot find dataform automatically**\n\nThe extension automatically searches:\n- System PATH\n- Common tool managers (mise, asdf, nvm, etc.)\n- Standard installation locations\n\nUse this setting for:\n- **Specific versions** for testing: `/path/to/dataform-v3.0.25`\n- **Company-approved versions**: `/opt/company-tools/dataform`\n- **Non-standard locations**: Custom installation paths\n\n**Example**: `/usr/local/bin/dataform` or `${HOME}/.local/share/mise/installs/npm-dataform-cli/3.0.26/bin/dataform`",
+          "pattern": "^.*dataform(?:\\.cmd|\\.exe)?$"
+        },
+        "vscode-dataform-tools.gcloudExecutablePath": {
+          "type": "string",
+          "default": null,
+          "markdownDescription": "**Override path to gcloud executable**\n\n⚠️ **Only use this if the extension cannot find gcloud automatically**\n\nThe extension automatically searches:\n- System PATH\n- Common tool managers (mise, asdf, etc.)\n- Standard gcloud installation locations\n\nUse this setting for:\n- **Specific versions** for testing: `/path/to/gcloud-v530.0.0`\n- **Company-approved versions**: `/opt/company-tools/gcloud`\n- **Non-standard locations**: Custom installation paths\n\n**Example**: `/usr/local/bin/gcloud` or `${HOME}/google-cloud-sdk/bin/gcloud`",
+          "pattern": "^.*gcloud(?:\\.cmd|\\.exe)?$"
+        },
+        "vscode-dataform-tools.compileAndDryRunBeforeFormatting": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Disable this to experience faster formatting, especially if you have enabled format on save. `::WARNING::` only turn this on if you are confident that your query compiles without errors. Syntax error in config/pre/post operation blocks termination can result in unexpeted results while formatting"
+        },
+        "vscode-dataform-tools.bigqueryAuthenticationCheck": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Uses an interval of 55 minutes to validate the user's BigQuery Credentials. Set this to `false` to only validate the user's credentials when a query or dry run fails"
+        },
+        "vscode-dataform-tools.recommendErrorLensExtension": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Whether to recommend Error Lens extension to show erorrs inline rather than showing them as swigly lines"
+        },
+        "vscode-dataform-tools.enableLogging": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Enable debug logging to help troubleshoot issues. Logs will appear in the 'Dataform Tools' output channel."
+        },
+        "vscode-dataform-tools.gcpProjectId": {
+          "type": "string",
+          "default": null,
+          "markdownDescription": "GCP project ID to use for BigQuery queries. When not provided, the project ID will be inferred from your enviroment typically same as `gcloud config list project`",
+          "pattern": "^[a-z0-9-]+$"
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[sqlx]": {
+        "editor.formatOnSave": false
+      }
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "rm -rf .vscode-test/user-data; vscode-test",
+    "prerelease": "npm run test && markdownlint-cli2 README.md && standard-version --dry-run",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "build-webview": "vite build"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.1",
+    "@storybook/addon-a11y": "^9.1.3",
+    "@storybook/addon-docs": "^9.1.3",
+    "@storybook/addon-vitest": "^9.1.3",
+    "@storybook/react-vite": "^9.1.3",
+    "@types/dagre": "^0.7.52",
+    "@types/jest": "^29.5.14",
+    "@types/js-beautify": "^1.14.3",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/vscode": "^1.89.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "@vitejs/plugin-react": "^4.2.0",
+    "@vitest/browser": "^3.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.5.2",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^9.1.2",
+    "dagre": "^0.8.5",
+    "eslint": "^8.57.0",
+    "eslint-plugin-storybook": "^9.1.3",
+    "playwright": "^1.55.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "storybook": "^9.1.3",
+    "tailwindcss": "^3.3.0",
+    "vite": "^5.0.0",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@google-cloud/bigquery": "^7.8.0",
+    "@google-cloud/lineage": "^1.3.0",
+    "@google-cloud/resource-manager": "^6.2.0",
+    "@tabler/icons-react": "^3.34.1",
+    "@xyflow/react": "^12.4.3",
+    "clean": "^4.0.2",
+    "comment-parser": "^1.4.1",
+    "js-beautify": "^1.15.1",
+    "postcss": "^8.5.2",
+    "pretest": "^1.1.0",
+    "react-select": "^5.10.0",
+    "typescript": "^5.7.3"
+  }
 }

@@ -1,8 +1,14 @@
+import colors from 'tailwindcss/colors';
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['./webviews/dependancy_graph/**/*.{js,jsx,ts,tsx}'],
+    content: ['./webviews/**/*.{js,jsx,ts,tsx}'],
     theme: {
-      extend: {},
+      extend: {
+        colors: {
+          primary: colors.indigo[500]
+        }
+      },
     },
     plugins: [],
   };
